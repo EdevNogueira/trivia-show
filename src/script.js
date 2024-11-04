@@ -4,18 +4,38 @@ const lista = document.getElementById('list');
 const resposta = document.getElementById('answer');
 const tentativa = document.getElementById('try');
 
+const questionario = [{
+    pergunta: "1°) What is the smallest planet in our Solar System?", 
+    lista: ["Venus", "Mars", "Mercury", "Earth", "Saturn"]
+}, 
+{
+    pergunta: "2°) What is the longest river in the world?",
+    lista: ["Amazon", "Nile", "Yangtze", "Mississippi", "Níger"]
+}]
+
+let perguntaAtual = 0;
+
+const telaInicial = () => {
+    let quest = questionario[perguntaAtual];
+    pergunta.innerHTML = `<h2>${quest.pergunta}</h2>`
+    lista.innerHTML = "";
+    for (let i = 0; i < quest.lista.length; i++) {
+        lista.innerHTML += `<li class="lista wrong"><a href="#">${quest.lista[i]}</a></li>`
+    }
+}
+/*
 pergunta.innerHTML = `
     <h2>1°) What is the smallest planet in our Solar System?</h2>
-`
-lista.innerHTML = `
-    <li class="wrong"><a href="#">Venus</a></li>
-    <li class="wrong"><a href="#">Mars</a></li>
-    <li class="right"><a href="#">Mercury</a></li>
-    <li class="wrong"><a href="#">Earth</a></li>
-    <li class="wrong"><a href="#">Saturn</a></li>
-`;
+`*/
+/*lista.innerHTML = `
+    <li class="lista wrong"><a href="#">Venus</a></li>
+    <li class="lista wrong"><a href="#">Mars</a></li>
+    <li class="lista right"><a href="#">Mercury</a></li>
+    <li class="lista wrong"><a href="#">Earth</a></li>
+    <li class="lista wrong"><a href="#">Saturn</a></li>
+`;*/
 
-const listaItem = document.querySelectorAll('#list li');
+const listaItem = document.querySelectorAll('.lista');
 
 const arrayItem = Array.from(listaItem);
 
@@ -26,17 +46,11 @@ const wrongOrRight = (item, clickItem) => {
         resposta.innerHTML = `
             <p style="color:red">You're wrong! Try again!</p>
         `;
-        tentativa.innerHTML = `
-            <button class="botao">Try again</button>
-        `;
     } else if (item.classList.contains('right')) {
         clickItem.style.backgroundColor = "green";
         clickItem.style.color = "white";
         resposta.innerHTML = `
             <p style="color:green">You're right!</p>
-        `;
-        tentativa.innerHTML = `
-            <button class="botao">Next question</button>
         `;
     }
 }
@@ -52,10 +66,12 @@ arrayItem.forEach((item, index) => {
     })
 })
 
-botao.addEventListener('click', () => {
+/*botao.addEventListener('click', () => {
     if(num = 0) {
         //pergunta.innetHtml... 2
     } else if(num = 1) {
         //pergunta.innerHtml... 3
     }
-})
+})*/
+
+telaInicial()
