@@ -83,3 +83,8 @@ ul > li > a:hover {
     background-color: aliceblue;
     border-color: aliceblue;
 }
+.disabled-link {
+    pointer-events: none;
+    color: gray;
+    cursor: default;
+}
