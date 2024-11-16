@@ -36,6 +36,7 @@ const telaInicial = () => {
     let quest = questionario[perguntaAtual];
     pergunta.innerHTML = `<h2>${quest.pergunta}</h2>`
     lista.innerHTML = "";
+    botao.disabled = true;
     //bloco que insere as opções da pergunta atual
     quest.lista.forEach((opcao) => {
         const item = document.createElement('li');
@@ -51,21 +52,30 @@ const telaInicial = () => {
         lista.appendChild(item);
     });
 };
+
 //desabilita a ação de clicar nos links até que a tentativa seja reiniciada
 const desabilitarLinks = () => {
     const allLinks = document.querySelectorAll('.lista a')
     allLinks.forEach(link => {
         if (link.classList.contains('disabled-link')) {
             link.classList.remove('disabled-link');
+            clicado = false;
+            botao.textContent = "Next Question";
+            botao.disabled = true;
         } else {
             link.classList.add('disabled-link');
             clicado = true;
-            botao.textContent = "Next Question";
         }
-    });
-};
+    })
+}
+/*const habilitarLinks = () => {
+    if (clicado === true && allLinks.every()) {
+        clicado = false;
+    }
+}*/
 
 const wrongOrRight = (respostaClick, clickItem, quest) => {
+    botao.disabled = false;
     if (respostaClick === quest.respostaCerta) {
         clickItem.style.backgroundColor = "green";
         clickItem.style.color = "white";
@@ -88,13 +98,21 @@ botao.addEventListener('click', () => {
             perguntaAtual++;
             resposta.innerHTML = "";
             telaInicial()
+            clicado = false
         } else {
-            alert('Você completou o jogo');
+            let jogarNovamente = prompt('You completed the game! Would you like to play again? ');
+            if (jogarNovamente === 'Yes' || jogarNovamente === 'yes') {
+                perguntaAtual = 0;
+                resposta.innerHTML = ""; 
+                clicado = false;
+                telaInicial();
+            }
             botao.disabled = true;
         };
     } else if (botao.textContent === "Try Again!"){
         desabilitarLinks();
         //adicionar duas funções (desabilitar e habilitar)
+        //habilitarLinks();
     }
 })
 
