@@ -101,7 +101,7 @@ botao.addEventListener('click', () => {
             clicado = false
         } else {
             let jogarNovamente = prompt('You completed the game! Would you like to play again? ');
-            if (jogarNovamente === 'Yes' || jogarNovamente === 'yes') {
+            if (typeof jogarNovamente === 'string' && jogarNovamente.toLowerCase() === 'yes') {
                 perguntaAtual = 0;
                 resposta.innerHTML = ""; 
                 clicado = false;
